@@ -1,0 +1,61 @@
+# -*-makefile-*-
+#/*************************************************************************
+# *                                                                       *
+# * t-lanai: lanai-target specific extentions to the gcc Makefile       *
+# *                                                                       *
+# * Copyright (c) 1994, 1995 by Myricom, Inc.                             *
+# * All rights reserved.                                                  *
+# *                                                                       *
+# * This program is free software; you can redistribute it and/or modify  *
+# * it under the terms of version 2 of the GNU General Public License     *
+# * as published by the Free Software Foundation.  Myricom requests that  *
+# * all modifications of this software be returned to Myricom, Inc. for   *
+# * redistribution.  The name of Myricom, Inc. may not be used to endorse *
+# * or promote products derived from this software without specific prior *
+# * written permission.                                                   *
+# *                                                                       *
+# * Myricom, Inc. makes no representations about the suitability of this  *
+# * software for any purpose.                                             *
+# *                                                                       *
+# * THIS FILE IS PROVIDED "AS-IS" WITHOUT WARRANTY OF ANY KIND, WHETHER   *
+# * EXPRESSED OR IMPLIED, INCLUDING THE WARRANTY OF MERCHANTABILITY OR    *
+# * FITNESS FOR A PARTICULAR PURPOSE.  MYRICOM, INC. SHALL HAVE NO        *
+# * LIABILITY WITH RESPECT TO THE INFRINGEMENT OF COPYRIGHTS, TRADE       *
+# * SECRETS OR ANY PATENTS BY THIS FILE OR ANY PART THEREOF.              *
+# *                                                                       *
+# * In no event will Myricom, Inc. be liable for any lost revenue         *
+# * or profits or other special, indirect and consequential damages, even *
+# * if Myricom has been advised of the possibility of such damages.       *
+# *                                                                       *
+# * Other copyrights might apply to parts of this software and are so     *
+# * noted when applicable.                                                *
+# *                                                                       *
+# * Myricom, Inc.                    Email: info@myri.com                 *
+# * 325 N. Santa Anita Ave.          World Wide Web: http://www.myri.com/ *
+# * Arcadia, CA 91024                                                     *
+# *************************************************************************/
+# file first released 5/95
+
+CRT0_S = $(srcdir)/config/lanai/crt0.s
+MCRT0_S = $(CRT0_S)
+STMP_FIXPROTO =
+CROSS_TEST =
+ENQUIRE =
+
+# Override library content, since we don't support floating-point.
+LIB2FUNCS_1 = _muldi3 _negdi2 _lshrdi3 _ashldi3 _ashrdi3 _ffsdi2 _clz \
+    _cmpdi2 _ucmpdi2
+LIB2FUNCS_2 = \
+    _clear_cache _trampoline __main _exit _absvsi2 _absvdi2 _addvsi3 \
+    _addvdi3 _subvsi3 _subvdi3 _mulvsi3 _mulvdi3 _negvsi2 _negvdi2 _ctors
+LIB2FUNCS_ST = _eprintf _bb __gcc_bcmp
+
+# Here we disable some of the functions that our system does not support.
+# note that many others are disabled in xm-lanai.h.
+TARGET_LIBGCC2_CFLAGS = -Dinhibit_libc=1 -many -O2
+
+EXTRA_PARTS = crt0.o
+
+#
+# end t-lanai
+#

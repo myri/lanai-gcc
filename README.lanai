@@ -1,0 +1,4 @@
+./configure CFLAGS="-g -O2 -m32"\
+ --target=lanai\
+ --prefix=/var/tmp/glenn/install\
+ --enable-languages=c

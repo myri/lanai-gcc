@@ -3,7 +3,7 @@
 #   Copyright (C) 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
 #   2000, 2001, 2002, 2003 Free Software Foundation, Inc.
 
-timestamp='2003-01-30'
+timestamp='2010-08-24'
 
 # This file is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published by
@@ -1023,6 +1023,9 @@ EOF
 	else # Add other i860-SVR4 vendors below as they are discovered.
 	  echo i860-unknown-sysv${UNAME_RELEASE}  # Unknown i860-SVR4
 	fi
+	exit 0 ;;
+    lanai:*:*:*)
+	echo lanai-myricom-coff
 	exit 0 ;;
     mini*:CTIX:SYS*5:*)
 	# "miniframe"

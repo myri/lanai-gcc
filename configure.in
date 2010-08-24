@@ -487,6 +487,11 @@ case "${target}" in
   i[3456]86-*-beos*)
      noconfigdirs="$noconfigdirs gdb target-newlib target-libgloss ${libgcj}"
      ;;
+  lanai-*-*)
+     noconfigdirs="$noconfigdirs target-libiberty target-libgloss"
+     noconfigdirs="$noconfigdirs target-newlib ${libstdcxx_version}"
+     noconfigdirs="$noconfigdirs  target-libf2c ${libgcj} target-libobjc"
+     ;;
   m68hc11-*-*|m6811-*-*|m68hc12-*-*|m6812-*-*)
     noconfigdirs="$noconfigdirs target-libiberty ${libstdcxx_version} ${libgcj}"
     ;;
