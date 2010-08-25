@@ -1,4 +1,17 @@
-./configure CFLAGS="-g -O2 -m32"\
- --target=lanai\
- --prefix=/var/tmp/glenn/install\
- --enable-languages=c
+To install lanai-gcc, use the same PREFIX used to install the lanai-binutils:
+
+  env CFLAGS="-O2 -g -m32" ./configure --target=lanai --enable-languages=c\
+   --prefix=PREFIX
+  make -j8
+  make install
+
+If you absolutely must install lanai-gcc elsewhere, then you will need to
+
+  env CFLAGS="-O2 -g -m32" ./configure --target=lanai --enable-languages=c\
+   --prefix=PREFIX
+  make build_tooldir=BINUTILS_PREFIX -j8
+  make build_tooldir=BINUTILS_PREFIX install
+
+where BINUTILS_PREFIX is the prefix used to install the lanai-binutils,
+and you will also need to use "lanai-gcc -BBINUTILS_PREFIX/lanai/bin/" isntead
+of just "lanai-gcc".
