@@ -1644,7 +1644,7 @@ output_movdi (operands)
 	  fake_operands[2] = gen_highpart (SImode, operands[0]);
 
 #if HOST_BITS_PER_WIDE_INT == 64
-	  fake_operands[3] = gen_highpart (SImode, operands[1]);
+	  fake_operands[3] = gen_rtx_CONST_INT (VOIDmode, INTVAL (operands[1])>>32);
 #else
 #if HOST_BITS_PER_WIDE_INT == 32
 	  if (INTVAL (operands[1]) < 0)

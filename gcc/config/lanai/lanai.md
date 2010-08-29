@@ -2093,7 +2093,7 @@
   [(set (match_dup 0) (match_dup 2))
    (set (match_dup 0) (plus:SI (match_dup 0) (match_dup 3)))]
   " {
-	operands[2]=gen_rtx_CONST_INT (VOIDmode,INTVAL(operands[1])&0xffff0000);
+	operands[2]=gen_rtx_CONST_INT (VOIDmode,trunc_int_for_mode (INTVAL(operands[1])&0xffff0000, SImode));
 	operands[3]=gen_rtx_CONST_INT (VOIDmode,INTVAL(operands[1])&0x0000ffff);
     }
   "

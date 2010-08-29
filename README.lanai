@@ -1,6 +1,6 @@
 To install lanai-gcc, use the same PREFIX used to install the lanai-binutils:
 
-  env CFLAGS="-O2 -g -m32" ./configure --target=lanai --enable-languages=c\
+  env CFLAGS="-O2 -g" ./configure --target=lanai --enable-languages=c\
    --prefix=PREFIX
   make -j8
   make install
