@@ -1,7 +1,9 @@
 To install lanai-gcc, use the same PREFIX used to install the lanai-binutils:
 
-  env CFLAGS="-O2 -g -m32" ./configure --target=lanai --enable-languages=c\
-   --prefix=PREFIX
+  # install flex-2.5.35
+  # install bison-2.4.3
+  CFLAGS="-O2 -g" ; export CFLAGS
+  ./configure --target=lanai --enable-languages=c --prefix=PREFIX
   make -j8
   make install
 
