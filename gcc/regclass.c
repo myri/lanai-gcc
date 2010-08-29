@@ -135,6 +135,10 @@ int n_non_fixed_regs;
 
 char global_regs[FIRST_PSEUDO_REGISTER];
 
+/* The same info as a HARD_REG_SET. */
+
+HARD_REG_SET global_reg_set;
+
 /* Contains 1 for registers that are set or clobbered by calls.  */
 /* ??? Ideally, this would be just call_used_regs plus global_regs, but
    for someone's bright idea to have call_used_regs strictly include
@@ -420,6 +424,7 @@ init_reg_sets_1 ()
   CLEAR_HARD_REG_SET (fixed_reg_set);
   CLEAR_HARD_REG_SET (call_used_reg_set);
   CLEAR_HARD_REG_SET (call_fixed_reg_set);
+  CLEAR_HARD_REG_SET (global_reg_set);
   CLEAR_HARD_REG_SET (regs_invalidated_by_call);
 
   memcpy (call_fixed_regs, fixed_regs, sizeof call_fixed_regs);
@@ -791,6 +796,7 @@ globalize_reg (i)
     warning ("call-clobbered register used for global register variable");
 
   global_regs[i] = 1;
+  SET_HARD_REG_BIT (global_reg_set, i);
 
   /* If we're globalizing the frame pointer, we need to set the
      appropriate regs_invalidated_by_call bit, even if it's already

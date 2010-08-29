@@ -1,3 +1,16 @@
+2010-08-28  Glenn Brown  <glenn@myri.com>
+
+        * version.c: Increment version for release.
+
+        * reorg.c (fill_slots_from_thread): Notice that global registers
+        values are needed, so they will not be corrupted by slot filling.
+
+        * hard-reg-set.h: Prototype new global_reg_set.
+
+        * regclass.c: Add new global_reg_set global.
+        (init_reg_sets_1): Initalize new global_reg_set.
+        (globalize_reg): Maintain new global_reg_set.
+
 2005-05-03  Release Manager
 
 	* GCC 3.3.6 Released.

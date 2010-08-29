@@ -1308,6 +1308,11 @@ steal_delay_list_from_target (insn, condition, seq, delay_list,
     return delay_list;
 #endif
 
+  /* Start building the new delay list by copying the old. */
+  
+  for (temp = delay_list; temp; temp = XEXP (temp, 1))
+    new_delay_list = add_to_delay_list (XEXP (temp, 0), new_delay_list);
+
   for (i = 1; i < XVECLEN (seq, 0); i++)
     {
       rtx trial = XVECEXP (seq, 0, i);
@@ -1341,10 +1346,9 @@ steal_delay_list_from_target (insn, condition, seq, delay_list,
 	       || (! insn_sets_resource_p (trial, other_needed, 0)
 		   && ! may_trap_p (PATTERN (trial)))))
 	  ? eligible_for_delay (insn, total_slots_filled, trial, flags)
-	  : (must_annul || (delay_list == NULL && new_delay_list == NULL))
+	  : (must_annul || new_delay_list == NULL)
 	     && (must_annul = 1,
-	         check_annul_list_true_false (0, delay_list)
-	         && check_annul_list_true_false (0, new_delay_list)
+	         check_annul_list_true_false (0, new_delay_list)
 	         && eligible_for_annul_false (insn, total_slots_filled,
 					      trial, flags)))
 	{
@@ -1371,13 +1375,7 @@ steal_delay_list_from_target (insn, condition, seq, delay_list,
   if (used_annul)
     *pannul_p = 1;
 
-  if (delay_list == 0)
-    return new_delay_list;
-
-  for (temp = new_delay_list; temp; temp = XEXP (temp, 1))
-    delay_list = add_to_delay_list (XEXP (temp, 0), delay_list);
-
-  return delay_list;
+  return new_delay_list;
 }
 
 /* Similar to steal_delay_list_from_target except that SEQ is on the
@@ -2616,6 +2614,11 @@ fill_slots_from_thread (insn, condition, thread, opposite_thread, likely,
 
   CLEAR_RESOURCE (&needed);
   CLEAR_RESOURCE (&set);
+
+  /* Notice that global registers are always needed by both threads. */
+  
+  COPY_HARD_REG_SET (needed.regs, global_reg_set);
+  IOR_HARD_REG_SET (opposite_needed.regs, global_reg_set);
 
   /* If we do not own this thread, we must stop as soon as we find
      something that we can't put in a delay slot, since all we can do

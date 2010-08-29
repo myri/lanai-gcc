@@ -435,6 +435,10 @@ extern HARD_REG_SET call_fixed_reg_set;
 
 extern char global_regs[FIRST_PSEUDO_REGISTER];
 
+/* The same info as a HARD_REG_SET. */
+
+extern HARD_REG_SET global_reg_set;
+
 /* Contains 1 for registers that are set or clobbered by calls.  */
 /* ??? Ideally, this would be just call_used_regs plus global_regs, but
    for someone's bright idea to have call_used_regs strictly include
