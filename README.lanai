@@ -9,11 +9,11 @@ To install lanai-gcc, use the same PREFIX used to install the lanai-binutils:
 
 If you absolutely must install lanai-gcc elsewhere, then you will need to
 
-  env CFLAGS="-O2 -g -m32" ./configure --target=lanai --enable-languages=c\
-   --prefix=PREFIX
+  CFLAGS="-O2 -g" ; export CFLAGS
+  ./configure --target=lanai --enable-languages=c --prefix=PREFIX
   make build_tooldir=BINUTILS_PREFIX -j8
   make build_tooldir=BINUTILS_PREFIX install
 
 where BINUTILS_PREFIX is the prefix used to install the lanai-binutils,
-and you will also need to use "lanai-gcc -BBINUTILS_PREFIX/lanai/bin/" isntead
+and you will also need to use "lanai-gcc -BBINUTILS_PREFIX/lanai/bin/" instead
 of just "lanai-gcc".

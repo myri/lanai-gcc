@@ -352,6 +352,9 @@ extern int target_flags;
   {"partword-load-warning", -_TARGET_NO_PARTWORD_LOAD_WARNING, ""},	\
   {"no-partword-load-warning", _TARGET_NO_PARTWORD_LOAD_WARNING, ""},	\
 									\
+  {"explicit-stalls", _TARGET_EXPLICIT_LD_STALLS_REQUIRED, ""},		\
+  {"no-explicit-stalls", -_TARGET_EXPLICIT_LD_STALLS_REQUIRED, ""},	\
+									\
   {"3.0", _TARGET_3_0, ""},						\
   {"3.0", -CLEAR_FOR_VERSION (_TARGET_3_0), ""},			\
 									\

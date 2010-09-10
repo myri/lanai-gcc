@@ -1,3 +1,9 @@
+2010-09-09  Glenn Brown  <glenn@myri.com>
+
+	* version.c: Increment version for release.
+
+	* config/lanai/lanai.h (TARGET_SWITCHES): Add -mexplicit-stalls.
+
 2010-08-28  Glenn Brown  <glenn@myri.com>
 
         * version.c: Increment version for release.
