@@ -2901,17 +2901,16 @@
 	 (mem:SI (match_dup 0)))
   ]
   "!TARGET_explicit_ld_stalls_required
-   && (operands[1] == operands[0]
-       || operands[2] == operands[0]
-       || operands[0] == operands[3])"
+   && (REGNO (operands[0]) == REGNO (operands[3])
+       || REGNO (operands[1]) == REGNO (operands[0])
+       || (GET_CODE (operands[2]) == REG
+           && REGNO (operands[2]) == REGNO (operands[0])))"
   "*
 {
-  if (operands[1] == operands[0])
-    return \"ld %2[*%0],%3\";
-  else if (operands[2] == operands[0])
-    return \"ld %1[*%0],%3\";
-  else if (operands[0] == operands[3])
-    return \"ld %1[%2],%3\";
+  if (REGNO (operands[0]) == REGNO (operands[3]))
+    return \"ld %2[%1],%3 !peep1\";
+  else if (REGNO (operands[1]) == REGNO (operands[0]))
+    return \"ld %2[*%1],%3 !peep2\";
   else
-    abort ();
+    return \"ld %1[*%2],%3 !peep3\";
 }")
